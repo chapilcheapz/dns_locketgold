@@ -685,6 +685,15 @@ obj.subscriber.original_purchase_date = "2024-01-01T00:00:00Z";
 obj.subscriber.non_subscriptions = obj.subscriber.non_subscriptions || {};
 obj.subscriber.other_purchases = obj.subscriber.other_purchases || {};
 
+var responseHeaders = $response.headers || {};
+delete responseHeaders['x-signature'];
+delete responseHeaders['X-Signature'];
+delete responseHeaders['x-revenuecat-etag'];
+delete responseHeaders['X-RevenueCat-ETag'];
+delete responseHeaders['etag'];
+delete responseHeaders['ETag'];
+
 $done({
+  headers: responseHeaders,
   body: JSON.stringify(obj)
 });
