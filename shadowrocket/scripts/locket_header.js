@@ -2,7 +2,15 @@
 > deleteHeader by HoangQuan
 ***********************************************/
 
-const version = 'V1.0.2';
+function setHeaderValue(e, a, d) {
+  var r = a.toLowerCase();
+  r in e ? (e[r] = d) : (e[a] = d);
+}
 
+var modifiedHeaders = $request.headers;
+setHeaderValue(modifiedHeaders, "X-RevenueCat-ETag", "");
+setHeaderValue(modifiedHeaders, "If-None-Match", "");
+if (modifiedHeaders["x-revenuecat-etag"]) delete modifiedHeaders["x-revenuecat-etag"];
+if (modifiedHeaders["if-none-match"]) delete modifiedHeaders["if-none-match"];
 
-function setHeaderValue(e,a,d){var r=a.toLowerCase();r in e?e[r]=d:e[a]=d}var modifiedHeaders=$request.headers;setHeaderValue(modifiedHeaders,"X-RevenueCat-ETag",""),$done({headers:modifiedHeaders});
+$done({ headers: modifiedHeaders });
