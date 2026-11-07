@@ -1,0 +1,21 @@
+#!name=Locket Gold - Hoàng Quân
+#!desc=Module cấu hình Locket Gold mở khóa toàn bộ tính năng by Hoàng Quân
+# 🚀 Customized by Hoàng Quân
+
+[General]
+user-agent = Locket/1.0.0 (iPhone; iOS 26.3; Scale/3.00)
+
+[Script]
+# ~ Locket Gold - Shadowrocket / Surge / LanceX
+
+# RevenueCat Response
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_revenuecat.js, requires-body=true, max-size=-1, timeout=60
+
+# RevenueCat Request Header
+deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_header.js, timeout=60
+
+# Locket Firebase Remote Config
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_remote_config.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com

@@ -1,0 +1,8 @@
+certs/ca.crt
+certs/ca.key
+certs/server.crt
+certs/server.key
+locket-gold.mobileconfig
+node_modules/
+.env
+*.log
