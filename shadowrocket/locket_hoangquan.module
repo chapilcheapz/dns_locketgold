@@ -1,9 +1,29 @@
-#!name=Locket Gold - Hoàng Quân
-#!desc=Module cấu hình Locket Gold mở khóa toàn bộ tính năng by Hoàng Quân
+#!name=Locket Gold & Anti-Revoke - Hoàng Quân
+#!desc=Mở khóa Locket Gold VIP + Chặn thu hồi chứng chỉ (Anti-Revoke) & Chặn quảng cáo by Hoàng Quân
 # 🚀 Customized by Hoàng Quân
 
 [General]
 user-agent = Locket/1.0.0 (iPhone; iOS 26.3; Scale/3.00)
+
+[Rule]
+# === 1. CHẶN THU HỒI CHỨNG CHỈ APPLE (ANTI-REVOKE TOÀN DIỆN) ===
+DOMAIN,ocsp.apple.com,REJECT
+DOMAIN,ocsp2.apple.com,REJECT
+DOMAIN,crl.apple.com,REJECT
+DOMAIN,ppq.apple.com,REJECT
+DOMAIN,app-attest.apple.com,REJECT
+DOMAIN,vpp.itunes.apple.com,REJECT
+DOMAIN,gdmf.apple.com,REJECT
+DOMAIN-SUFFIX,certs.apple.com,REJECT
+
+# === 2. CHẶN TRACKING LOGGING & QUẢNG CÁO RÁC ===
+DOMAIN,firebaselogging.googleapis.com,REJECT
+DOMAIN,firebaseremoteconfigrealtime.googleapis.com,REJECT
+DOMAIN,logs.ads.vungle.com,REJECT
+DOMAIN,ad.youtube.com,REJECT
+DOMAIN,ads.youtube.com,REJECT
+DOMAIN,googleads.g.doubleclick.net,REJECT
+DOMAIN,pagead2.googlesyndication.com,REJECT
 
 [Script]
 # ~ Locket Gold - Shadowrocket / Surge / LanceX
