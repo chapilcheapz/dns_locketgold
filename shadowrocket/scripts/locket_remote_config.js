@@ -6,6 +6,9 @@
 var obj = JSON.parse($response.body);
 
 obj.Attention = "Kích hoạt Locket Gold thành công - Hoàng Quân";
+obj.appName = "com.locket.Locket";
+obj.state = "UPDATE";
+obj.templateVersion = String(Date.now());
 obj.entries = obj.entries || {};
 
 var serverEntries = {
@@ -432,6 +435,7 @@ var serverEntries = {
   "rollcall_history_feature_popup_config": "{\"campaign\": \"locket_notice_unauth_v1792087201\", \"tag\": \"⚠️ THÔNG BÁO TỪ HỆ THỐNG\", \"title\": \"XÓA LOCKET TẢI LẠI\", \"description\": \"Nếu bạn thấy thông báo này.\\\"HÃY XÓA  APP  RỒI TẢI  LẠI NHÉ\\\"\", \"start_at\": \"2026-11-06T00:00:00\", \"end_at\": \"2027-01-07T23:59:59\", \"use_local_time_zone\": true}"
 };
 
+// Ghi đè toàn bộ cấu hình khớp 100% với máy chủ live
 Object.assign(obj.entries, serverEntries);
 
 $done({ body: JSON.stringify(obj) });

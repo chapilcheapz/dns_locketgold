@@ -533,7 +533,7 @@ var serverSubscriber = {
     }
   },
   "first_seen": "1890-05-19T00:00:00Z",
-  "last_seen": "2026-11-07T19:22:57Z",
+  "last_seen": "2026-11-07T19:53:24Z",
   "management_url": "https://apps.apple.com/account/subscriptions",
   "non_subscriptions": {},
   "original_app_user_id": "links",
@@ -543,39 +543,39 @@ var serverSubscriber = {
   "subscriber_attributes": {
     "$ip": {
       "value": "104.28.247.1",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$countryCode": {
       "value": "US",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$geoIP.country": {
       "value": "US",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$geoIP.city": {
       "value": "Los Angeles",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$geoIP.region": {
       "value": "CA",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$geoIP.timeZone": {
       "value": "America/Los_Angeles",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$storefront.countryCode": {
       "value": "USA",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$locale": {
       "value": "en_US",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     },
     "$displayName": {
       "value": "links",
-      "updated_at_ms": 1794079377589
+      "updated_at_ms": 1794081204908
     }
   },
   "subscriptions": {
@@ -672,11 +672,18 @@ var serverSubscriber = {
   }
 };
 
-if (obj.subscriber) {
-  obj.subscriber.entitlements = serverSubscriber.entitlements;
-  obj.subscriber.subscriptions = serverSubscriber.subscriptions;
-  obj.subscriber.original_purchase_date = "2024-01-01T00:00:00Z";
+if (!obj.subscriber) {
+  obj.subscriber = {};
 }
+
+// Gán toàn bộ 58 quyền và 6 gói mua
+obj.subscriber.entitlements = serverSubscriber.entitlements;
+obj.subscriber.subscriptions = serverSubscriber.subscriptions;
+obj.subscriber.original_purchase_date = "2024-01-01T00:00:00Z";
+
+// Đảm bảo các thuộc tính hệ thống
+obj.subscriber.non_subscriptions = obj.subscriber.non_subscriptions || {};
+obj.subscriber.other_purchases = obj.subscriber.other_purchases || {};
 
 $done({
   body: JSON.stringify(obj)
