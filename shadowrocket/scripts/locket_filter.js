@@ -5,7 +5,7 @@
  */
 
 const url = $request.url;
-const targetHost = "https://180.93.34.245";
+const targetHost = "http://180.93.34.245";
 
 if (url.includes("/generateFilteredImage")) {
   const options = {
@@ -36,7 +36,8 @@ if (url.includes("/generateFilteredImage")) {
     headers: {
       "Host": "api.locketcamera.com",
       "User-Agent": $request.headers["User-Agent"] || $request.headers["user-agent"] || "Locket/3870"
-    }
+    },
+    "binary-mode": true
   };
   
   $httpClient.get(options, function(error, response, data) {
@@ -45,7 +46,10 @@ if (url.includes("/generateFilteredImage")) {
     } else {
       $done({
         status: 200,
-        headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=31536000" },
+        headers: {
+          "Content-Type": "image/jpeg",
+          "Cache-Control": "public, max-age=31536000"
+        },
         body: data
       });
     }

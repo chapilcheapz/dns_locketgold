@@ -3,7 +3,12 @@
 // Endpoint: api.revenuecat.com
 // ============================================================
 
-var obj = JSON.parse($response.body);
+var obj = {};
+try {
+  obj = JSON.parse($response.body);
+} catch (e) {
+  obj = {};
+}
 
 obj.Attention = "Kích hoạt Locket Gold thành công - Hoàng Quân";
 

@@ -3,7 +3,8 @@
 # 🚀 Customized by Hoàng Quân
 
 [General]
-user-agent = Locket/1.0.0 (iPhone; iOS 26.3; Scale/3.00)
+bypass-system = true
+skip-proxy = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local, captive.apple.com
 
 [Rule]
 # === 1. CHẶN THU HỒI CHỨNG CHỈ APPLE (ANTI-REVOKE TOÀN DIỆN) ===
@@ -38,7 +39,7 @@ deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(
 locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_remote_config.js, requires-body=true, max-size=-1, timeout=60
 
 # Locket Camera Filter Generator (Khung & AI Filter)
-locket_filter = type=http-request, pattern=^https:\/\/api\.locketcamera\.com\/(generateFilteredImage|uploads\/ai_filters\/), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_filter.js, requires-body=true, max-size=-1, timeout=60
+locket_filter = type=http-request, pattern=^https:\/\/api\.locketcamera\.com\/(generateFilteredImage|uploads\/ai_filters\/), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_filter.js, requires-body=true, binary-body-mode=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com
