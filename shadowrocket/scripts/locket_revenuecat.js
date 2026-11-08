@@ -1,70 +1,62 @@
 /**
- * Locket RevenueCat Script - Hoàng Quân
- * Exact Clone of Working Server Response
+ * Locket Gold RevenueCat Unlock - Hoàng Quân
+ * Lightweight, Clean & Fast Version (inspired by all-in-one.conf)
  */
 
-(function() {
-if (typeof $request !== 'undefined' && $request && $request.url) {
-  // If request is for offerings or products, pass through untouched
-  if ($request.url.indexOf('/offerings') !== -1 || $request.url.indexOf('/products') !== -1) {
-    $done({});
-    return;
-  }
+var obj = {};
+try {
+  obj = JSON.parse($response.body);
+} catch (e) {
+  obj = {};
 }
 
-var now = new Date().toISOString();
-var now_ms = Date.now();
-
-var fullResponse = {"request_date": "2026-11-07T20:42:53Z", "request_date_ms": 1794084173530, "subscriber": {"entitlements": {"Gold": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "gold": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "locket_gold": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "filters": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "filter": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "Filters": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "Filter": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_filters": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_filter": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_filter_sheet": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "ai_filters": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "ai_filter": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "all_filters": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "effects": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video_upload": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_roll": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_roll_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "longer_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video_15s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video_duration": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "unlimited_friends": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "custom_widget_frames": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "customWidgetFrames": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "widget_frames": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "streak_recovery": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "streakRecovery": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "app_icon_picker": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_theme": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "locket_views": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "long_captions": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "profile_badge": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "profileBadge": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "gold_since_badge": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "goldSinceBadge": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "remove_ads": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "groups": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "private_mode": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "viewer_mode": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "close_friends": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "extended_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "longer_videos": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "private_viewing": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "best_friends": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "privacy": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "qr_code": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "user_qr": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "qr_user": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_roll_video_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "video_upload_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "upload_video_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_roll_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "upload_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "camera_roll_longer_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "photo_library_video": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "photo_library_video_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}, "longer_video_30s": {"expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "product_identifier": "locket_2400_1y", "purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "store": "app_store", "is_sandbox": false}}, "first_seen": "1890-05-19T00:00:00Z", "last_seen": "2026-11-07T20:42:53Z", "management_url": "https://apps.apple.com/account/subscriptions", "non_subscriptions": {}, "original_app_user_id": "links", "original_application_version": "1.0", "original_purchase_date": "1890-05-19T00:00:00Z", "other_purchases": {}, "subscriber_attributes": {"$ip": {"value": "104.28.247.1", "updated_at_ms": 1794084173530}, "$countryCode": {"value": "US", "updated_at_ms": 1794084173530}, "$geoIP.country": {"value": "US", "updated_at_ms": 1794084173530}, "$geoIP.city": {"value": "Los Angeles", "updated_at_ms": 1794084173530}, "$geoIP.region": {"value": "CA", "updated_at_ms": 1794084173530}, "$geoIP.timeZone": {"value": "America/Los_Angeles", "updated_at_ms": 1794084173530}, "$storefront.countryCode": {"value": "USA", "updated_at_ms": 1794084173530}, "$locale": {"value": "en_US", "updated_at_ms": 1794084173530}, "$displayName": {"value": "links", "updated_at_ms": 1794084173530}}, "subscriptions": {"locket_2400_1y": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}, "locket_299_1m": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}, "locket_199_1m": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}, "locket_gold_annual": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}, "locket_gold_monthly": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}, "locket_gold_yearly": {"auto_resume_date": null, "billing_issues_detected_at": null, "expires_date": "2099-12-31T16:59:59Z", "grace_period_expires_date": null, "is_sandbox": false, "original_purchase_date": "1890-05-19T00:00:00Z", "ownership_type": "PURCHASED", "period_type": "normal", "product_plan_identifier": null, "purchase_date": "1890-05-19T00:00:00Z", "refunded_at": null, "store": "app_store", "unsubscribe_detected_at": null}}}, "Attention": "Kích hoạt Locket Gold thành công - Hoàng Quân"};
-
-fullResponse.request_date = now;
-fullResponse.request_date_ms = now_ms;
-
-// Dynamically set user ID if present in request URL
-if (typeof $request !== 'undefined' && $request && $request.url) {
-  var match = $request.url.match(/\/subscribers\/([^/?#]+)/);
-  if (match && match[1]) {
-    fullResponse.subscriber.original_app_user_id = decodeURIComponent(match[1]);
-  }
+if (!obj || typeof obj !== "object") {
+  obj = {};
 }
 
-if (typeof $response !== 'undefined' && $response) {
-  // HTTP-RESPONSE MODE
-  var respHeaders = $response.headers ? Object.assign({}, $response.headers) : {};
-
-  delete respHeaders['x-signature'];
-  delete respHeaders['X-Signature'];
-  delete respHeaders['x-revenuecat-etag'];
-  delete respHeaders['X-RevenueCat-ETag'];
-
-  // Critical: delete length and encoding to prevent truncation and decompression errors
-  delete respHeaders['content-length'];
-  delete respHeaders['Content-Length'];
-  delete respHeaders['content-encoding'];
-  delete respHeaders['Content-Encoding'];
-  delete respHeaders['transfer-encoding'];
-  delete respHeaders['Transfer-Encoding'];
-
-  respHeaders['content-type'] = 'application/json; charset=utf-8';
-  respHeaders['cache-control'] = 'no-cache, no-store, must-revalidate';
-
-  $done({
-    status: 200,
-    headers: respHeaders,
-    body: JSON.stringify(fullResponse)
-  });
-} else {
-  // HTTP-REQUEST MODE
-  $done({
-    response: {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Access-Control-Allow-Origin": "*"
-      },
-      body: JSON.stringify(fullResponse)
-    }
-  });
+if (!obj.subscriber) {
+  obj.subscriber = { entitlements: {}, subscriptions: {} };
 }
-})();
+if (!obj.subscriber.entitlements) obj.subscriber.entitlements = {};
+if (!obj.subscriber.subscriptions) obj.subscriber.subscriptions = {};
+
+obj.Attention = "Kích hoạt Locket Gold thành công bởi Hoàng Quân!";
+
+var goldSub = {
+  is_sandbox: false,
+  ownership_type: "PURCHASED",
+  billing_issues_detected_at: null,
+  period_type: "normal",
+  expires_date: "2099-12-31T23:59:59Z",
+  grace_period_expires_date: null,
+  unsubscribe_detected_at: null,
+  original_purchase_date: "2024-01-01T00:00:00Z",
+  purchase_date: "2024-01-01T00:00:00Z",
+  store: "app_store"
+};
+
+var goldEntitlement = {
+  grace_period_expires_date: null,
+  purchase_date: "2024-01-01T00:00:00Z",
+  product_identifier: "locket_2400_1y",
+  expires_date: "2099-12-31T23:59:59Z",
+  ownership_type: "PURCHASED",
+  store: "app_store",
+  is_sandbox: false
+};
+
+const entitlements = ["Gold", "gold", "locket_gold"];
+for (let e of entitlements) {
+  obj.subscriber.entitlements[e] = goldEntitlement;
+}
+
+obj.subscriber.subscriptions["locket_2400_1y"] = goldSub;
+
+$done({
+  status: 200,
+  headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-cache, no-store, must-revalidate"
+  },
+  body: JSON.stringify(obj)
+});
