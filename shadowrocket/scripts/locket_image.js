@@ -16,12 +16,22 @@ var options = {
     "Host": "api.locketcamera.com",
     "User-Agent": userAgent
   },
-  "binary-mode": true
+  "binary-mode": true,
+  timeout: 10
 };
 
 $httpClient.get(options, function(error, response, data) {
   if (error || !data) {
-    $done({});
+    // 302 fallback redirect to direct backend if proxy read fails
+    $done({
+      response: {
+        status: 302,
+        headers: {
+          "Location": targetHost + path,
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    });
   } else {
     $done({
       response: {
