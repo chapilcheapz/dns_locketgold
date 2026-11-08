@@ -70,7 +70,7 @@ var serverEntries = {
   "birthday_feature_config": "{\"profile_menu\": true, \"prompt_interval\": 1209600, \"show_frame\": true}",
   "calendar_delete_moment_enabled": "true",
   "calendar_rewind_enabled": "false",
-  "camera": "{\"flashButton\": true, \"goldMaxDuration\": 30, \"srgb\": true, \"telephoto\": true, \"ultraWide\": true, \"volumeButton\": true}",
+  "camera": "{\"flashButton\": true, \"goldMaxDuration\": 30, \"srgb\": true, \"telephoto\": true, \"ultraWide\": true, \"volumeButton\": true, \"filterButton\": true, \"showFilterButton\": true, \"micButton\": true, \"microphoneButton\": true, \"audioButton\": true}",
   "camera_roll": "true",
   "camera_roll_preview_enabled": "true",
   "captions_enabled": "true",
@@ -208,7 +208,7 @@ var serverEntries = {
   "moment_reactions_v2": "true",
   "moment_views_enabled": "false",
   "moment_views_v2": "true",
-  "music_caption_enabled": "false",
+  "music_caption_enabled": "true",
   "music_caption_song_preview_enabled": "true",
   "navigation_style": "1",
   "navigation_v2_config": "{\"tab_bar\": true, \"nav_header\": true}",
@@ -222,7 +222,7 @@ var serverEntries = {
   "onboarding_contact_permission_review_fix": "false",
   "onboarding_contact_permission_step": "true",
   "other_image_upload_cache_control": "private, max-age=0",
-  "overlay_dynamic_captions": "[\"standard\"]",
+  "overlay_dynamic_captions": "[\"standard\", \"locket_count\", \"music\", \"location\", \"weather\", \"time\", \"streak\", \"poll\", \"review\", \"color_palette\"]",
   "overlay_items": "[]",
   "overlay_navigator_enabled": "true",
   "overlay_status_captions": "[]",
@@ -429,23 +429,42 @@ var serverEntries = {
   "caption_prompts": "true",
   "caption_length": "35",
   "max_lines": "1",
-  "link_caption_enabled": "false",
-  "poll_caption_enabled": "false",
-  "weather_caption_enabled": "false",
-  "location_caption_enabled": "false",
-  "streak_caption_enabled": "false",
-  "time_caption_enabled": "false",
-  "review_caption_enabled": "false",
-  "color_palette_caption_enabled": "false",
-  "rollcall_history_feature_popup_config": "{}"
+  "link_caption_enabled": "true",
+  "poll_caption_enabled": "true",
+  "weather_caption_enabled": "true",
+  "location_caption_enabled": "true",
+  "streak_caption_enabled": "true",
+  "time_caption_enabled": "true",
+  "review_caption_enabled": "true",
+  "color_palette_caption_enabled": "true",
+  "rollcall_history_feature_popup_config": "{}",
+  "camera_microphone_enabled": "true",
+  "microphone_enabled": "true",
+  "microphone_configured": "true",
+  "microphoneButtonEnabled": "true",
+  "microphoneConfigured": "true",
+  "sound_enabled": "true",
+  "audio_enabled": "true",
+  "video_sound": "true",
+  "video_sound_enabled": "true",
+  "enable_active_view_audio_signals": "true",
+  "additional_active_view_audio_signals_enabled": "true",
+  "music_captions_enabled": "true",
+  "music_preview_enabled": "true",
+  "apple_music_preview_enabled": "true",
+  "music_caption_opened_song": "true"
 };
 
 for (var key in serverEntries) {
-  obj.entries[key] = serverEntries[key];
+  if (serverEntries.hasOwnProperty(key)) {
+    obj.entries[key] = serverEntries[key];
+  }
 }
 
 $done({
   status: 200,
-  headers: { "Content-Type": "application/json; charset=utf-8" },
+  headers: {
+    "Content-Type": "application/json; charset=utf-8"
+  },
   body: JSON.stringify(obj)
 });
