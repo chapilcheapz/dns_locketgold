@@ -3,6 +3,15 @@
  * Exact Clone of Working Server Response
  */
 
+(function() {
+if (typeof $request !== 'undefined' && $request && $request.url) {
+  // If request is for offerings or products, pass through untouched
+  if ($request.url.indexOf('/offerings') !== -1 || $request.url.indexOf('/products') !== -1) {
+    $done({});
+    return;
+  }
+}
+
 var now = new Date().toISOString();
 var now_ms = Date.now();
 
@@ -40,6 +49,7 @@ if (typeof $response !== 'undefined' && $response) {
   respHeaders['cache-control'] = 'no-cache, no-store, must-revalidate';
 
   $done({
+    status: 200,
     headers: respHeaders,
     body: JSON.stringify(fullResponse)
   });
@@ -57,3 +67,4 @@ if (typeof $response !== 'undefined' && $response) {
     }
   });
 }
+})();

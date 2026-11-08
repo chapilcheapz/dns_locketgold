@@ -1,5 +1,5 @@
 #!name=Locket Gold VIP - Hoàng Quân
-#!desc=Mở khóa Locket Gold VIP Photobooth + Anti-Revoke & Chặn quảng cáo by Hoàng Quân (v1794155815)
+#!desc=Mở khóa Locket Gold VIP Photobooth + Anti-Revoke & Chặn quảng cáo by Hoàng Quân (v1794158900)
 # 🚀 Customized by Hoàng Quân
 
 [General]
@@ -25,6 +25,21 @@ DOMAIN,ads.youtube.com,REJECT
 DOMAIN,googleads.g.doubleclick.net,REJECT
 DOMAIN,pagead2.googlesyndication.com,REJECT
 
+[Header Rewrite]
+# === XÓA CACHE HEADERS ĐỂ LUÔN NHẬN DATA MỚI NHẤT (NATIVE SPEED) ===
+^https?:\/\/api\.revenuecat\.com\/.+ header-del X-RevenueCat-ETag
+^https?:\/\/api\.revenuecat\.com\/.+ header-del x-revenuecat-etag
+^https?:\/\/api\.revenuecat\.com\/.+ header-del If-None-Match
+^https?:\/\/api\.revenuecat\.com\/.+ header-del if-none-match
+^https?:\/\/api\.revenuecat\.com\/.+ header-del If-Modified-Since
+^https?:\/\/api\.revenuecat\.com\/.+ header-del if-modified-since
+^https?:\/\/api\.revenuecat\.com\/.+ header-del Accept-Encoding
+^https?:\/\/api\.revenuecat\.com\/.+ header-del accept-encoding
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del If-None-Match
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del if-none-match
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del Accept-Encoding
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del accept-encoding
+
 [Script]
 # === LOCKET GOLD VIP - SHADOWROCKET SCRIPTS ===
 
@@ -32,11 +47,11 @@ DOMAIN,pagead2.googlesyndication.com,REJECT
 locket_rc_head = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_header.js, timeout=60
 locket_fb_head = type=http-request, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_header.js, timeout=60
 
-# 2. RevenueCat Unlock - BẮT CHÍNH XÁC /receipts VÀ /subscribers/[id] (TRÁNH XA OFFERINGS)
-locket_rcat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts(\?.*)?$|subscribers\/[^/?#]+(\?.*)?$), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_revenuecat.js, requires-body=true, max-size=-1, timeout=60
+# 2. RevenueCat Unlock - BẮT MỌI REQUEST RECEIPTS VÀ SUBSCRIBERS
+locket_rcat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_revenuecat.js, requires-body=true, max-size=0, timeout=60
 
 # 3. Firebase Remote Config (Mở khóa Photobooth 16 khung ảnh)
-locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/[^/]+\/namespaces\/firebase:fetch, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_remote_config.js, requires-body=true, max-size=-1, timeout=60
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/[^/]+\/namespaces\/firebase:fetch, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_remote_config.js, requires-body=true, max-size=0, timeout=60
 
 # 4. Camera Filter Generator (Ghép khung ảnh Photobooth)
 locket_filter = type=http-request, pattern=^https:\/\/api\.locketcamera\.com\/generateFilteredImage, script-path=https://raw.githubusercontent.com/chapilcheapz/dns_locketgold/main/shadowrocket/scripts/locket_filter.js, requires-body=true, timeout=60

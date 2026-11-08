@@ -11,5 +11,7 @@ delete modifiedHeaders["If-Modified-Since"];
 delete modifiedHeaders["if-modified-since"];
 delete modifiedHeaders["X-Nonce"];
 delete modifiedHeaders["x-nonce"];
+delete modifiedHeaders["Accept-Encoding"];
+delete modifiedHeaders["accept-encoding"];
 
 $done({ headers: modifiedHeaders });
