@@ -17,7 +17,6 @@ delete responseHeaders['x-revenuecat-etag'];
 delete responseHeaders['X-RevenueCat-ETag'];
 
 $done({
-  status: 200,
   headers: responseHeaders,
   body: JSON.stringify(fullResponse)
 });
