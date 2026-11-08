@@ -699,6 +699,7 @@ delete responseHeaders['etag'];
 delete responseHeaders['ETag'];
 
 $done({
+  status: 200,
   headers: responseHeaders,
   body: JSON.stringify(obj)
 });
