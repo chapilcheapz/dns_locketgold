@@ -452,7 +452,16 @@ var serverEntries = {
   "music_captions_enabled": "true",
   "music_preview_enabled": "true",
   "apple_music_preview_enabled": "true",
-  "music_caption_opened_song": "true"
+  "music_caption_opened_song": "true",
+  "camera_filters_enabled": "true",
+  "camera_filter_enabled": "true",
+  "enable_camera_filter": "true",
+  "show_filter_button": "true",
+  "showFilterButton": "true",
+  "camera_filter_sheet_enabled": "true",
+  "cameraFilterPromoButton": "true",
+  "camera_filters": "true",
+  "camera_filter": "true"
 };
 
 for (var key in serverEntries) {
