@@ -6,7 +6,7 @@
 var reqUrl = (typeof $request !== "undefined" && $request.url) ? $request.url : "";
 if (reqUrl.indexOf("/offerings") !== -1 || reqUrl.indexOf("/config/app") !== -1) {
   $done({});
-}
+} else {
 
 var obj = {};
 try {
@@ -711,3 +711,4 @@ $done({
   headers: responseHeaders,
   body: JSON.stringify(obj)
 });
+}
