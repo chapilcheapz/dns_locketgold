@@ -3,6 +3,11 @@
 // Endpoint: api.revenuecat.com
 // ============================================================
 
+var reqUrl = (typeof $request !== "undefined" && $request.url) ? $request.url : "";
+if (reqUrl.indexOf("/offerings") !== -1 || reqUrl.indexOf("/config/app") !== -1) {
+  $done({});
+}
+
 var obj = {};
 try {
   obj = JSON.parse($response.body);
@@ -11,6 +16,9 @@ try {
 }
 
 obj.Attention = "Kích hoạt Locket Gold thành công - Hoàng Quân";
+var now = new Date().toISOString();
+obj.request_date = now;
+obj.request_date_ms = Date.now();
 
 var serverSubscriber = {
   "entitlements": {

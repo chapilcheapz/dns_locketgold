@@ -28,8 +28,9 @@ DOMAIN,pagead2.googlesyndication.com,REJECT
 [Script]
 # === LOCKET GOLD VIP - SHADOWROCKET SCRIPTS ===
 
-# 1. Header Rewrite (Xóa cache ETag để ép server trả full 200 OK)
-locket_header = type=http-request, pattern=^https:\/\/(api\.revenuecat\.com\/.+\/(receipts|subscribers)|firebaseremoteconfig\.googleapis\.com\/v1\/projects), script-path=https://cdn.jsdelivr.net/gh/chapilcheapz/dns_locketgold@main/shadowrocket/scripts/locket_header.js, timeout=60
+# 1. Xóa cache header (RevenueCat & Firebase Remote Config) để luôn nhận dữ liệu mới nhất
+locket_rc_head = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://cdn.jsdelivr.net/gh/chapilcheapz/dns_locketgold@main/shadowrocket/scripts/locket_header.js, timeout=60
+locket_fb_head = type=http-request, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects, script-path=https://cdn.jsdelivr.net/gh/chapilcheapz/dns_locketgold@main/shadowrocket/scripts/locket_header.js, timeout=60
 
 # 2. RevenueCat Unlock (58 Entitlements Gold VIP vĩnh viễn)
 locket_rcat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://cdn.jsdelivr.net/gh/chapilcheapz/dns_locketgold@main/shadowrocket/scripts/locket_revenuecat.js, requires-body=true, timeout=60
