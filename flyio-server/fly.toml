@@ -1,0 +1,32 @@
+app = "locket-gold"
+primary_region = "sin"  # Singapore — gần VN nhất
+
+# 2 services: HTTP (profile/DOH) và MITM TLS
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["http", "tls"]  # Fly TLS terminate cho profile serve
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 100
+
+# MITM: TCP passthrough — Fly KHÔNG terminate TLS, app tự handle
+[[services]]
+  internal_port = 8443
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 8443
+    handlers = ["tls"]     # passthrough — app dùng custom cert của mình
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 100

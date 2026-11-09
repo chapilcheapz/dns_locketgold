@@ -1,0 +1,7 @@
+[req]
+req_extensions = v3_req
+[v3_req]
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = api.revenuecat.com
+DNS.2 = *.revenuecat.com
