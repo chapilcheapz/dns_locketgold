@@ -9,7 +9,7 @@ import base64
 import asyncio
 import httpx
 from fastapi import FastAPI, Request, Response, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 
 app = FastAPI(title="Locket Gold DOH Server")
 
@@ -146,6 +146,144 @@ def build_json_a(name: str, ip: str) -> dict:
 @app.get("/")
 async def health():
     return {"status": "ok", "service": "Locket Gold DOH Server", "by": "Hoàng Quân"}
+
+
+# =====================================================
+# Mobileconfig Serve - đúng Content-Type để Safari tải về
+# =====================================================
+
+MOBILECONFIG_XML = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadDisplayName</key>
+  <string>Locket Gold DOH — Hoàng Quân</string>
+  <key>PayloadDescription</key>
+  <string>DNS-over-HTTPS tự host — Mở khóa Locket Gold, chặn anti-revoke &amp; quảng cáo</string>
+  <key>PayloadIdentifier</key>
+  <string>com.locketgold.hoangquan.doh.config</string>
+  <key>PayloadOrganization</key>
+  <string>Hoàng Quân</string>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>B7F2A31C-4D8E-4A09-9F1B-C3E5D6A82B47</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadType</key>
+      <string>com.apple.dnsSettings.managed</string>
+      <key>PayloadIdentifier</key>
+      <string>com.locketgold.hoangquan.doh.dns</string>
+      <key>PayloadUUID</key>
+      <string>A1D3E52F-7B9C-4F2A-8E6D-B4C1F3A09D28</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>PayloadDisplayName</key>
+      <string>Locket Gold DOH Server</string>
+      <key>DNSSettings</key>
+      <dict>
+        <key>DNSProtocol</key>
+        <string>HTTPS</string>
+        <key>ServerURL</key>
+        <string>https://dns-locketgold.onrender.com/dns-query/hoangquan</string>
+        <key>ServerAddresses</key>
+        <array>
+          <string>1.1.1.1</string>
+          <string>1.0.0.1</string>
+        </array>
+        <key>SupplementalMatchDomains</key>
+        <array>
+          <string>api.revenuecat.com</string>
+          <string>*.revenuecat.com</string>
+          <string>firebaseremoteconfig.googleapis.com</string>
+          <string>*.firebaseremoteconfig.googleapis.com</string>
+          <string>firebaseremoteconfigrealtime.googleapis.com</string>
+          <string>api.locketcamera.com</string>
+          <string>ocsp.apple.com</string>
+          <string>ocsp2.apple.com</string>
+          <string>crl.apple.com</string>
+          <string>ppq.apple.com</string>
+          <string>app-attest.apple.com</string>
+          <string>vpp.itunes.apple.com</string>
+          <string>gdmf.apple.com</string>
+          <string>certs.apple.com</string>
+          <string>firebaselogging.googleapis.com</string>
+          <string>logs.ads.vungle.com</string>
+          <string>ad.youtube.com</string>
+          <string>ads.youtube.com</string>
+          <string>googleads.g.doubleclick.net</string>
+          <string>pagead2.googlesyndication.com</string>
+        </array>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>"""
+
+
+@app.get("/profile")
+@app.get("/profile/{user}")
+async def serve_mobileconfig(user: str = "hoangquan"):
+    """
+    Serve file .mobileconfig với đúng Content-Type để Safari iPhone tự nhận và tải về.
+    Mở link này bằng Safari: https://dns-locketgold.onrender.com/profile
+    """
+    return Response(
+        content=MOBILECONFIG_XML.strip(),
+        media_type="application/x-apple-aspen-config",
+        headers={
+            "Content-Disposition": f'attachment; filename="LocketGold_{user}.mobileconfig"'
+        }
+    )
+
+
+@app.get("/install")
+async def install_page():
+    """Trang hướng dẫn cài profile — mở bằng Safari."""
+    html = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locket Gold DOH — Cài đặt</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 420px; margin: 40px auto; padding: 20px; background: #f5f5f7; }
+  .card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  h1 { font-size: 22px; color: #1d1d1f; }
+  p { color: #6e6e73; font-size: 15px; line-height: 1.5; }
+  .btn { display: block; background: #0071e3; color: white; text-decoration: none;
+         text-align: center; padding: 14px; border-radius: 12px; font-size: 17px;
+         font-weight: 600; margin-top: 20px; }
+  .steps { background: #f5f5f7; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  .steps li { color: #1d1d1f; font-size: 14px; margin: 8px 0; }
+  .badge { background: #34c759; color: white; border-radius: 6px; padding: 2px 8px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🌐 Locket Gold DOH</h1>
+  <p>DNS-over-HTTPS tự host — Chặn anti-revoke, block quảng cáo, bảo vệ Locket Gold.</p>
+  <span class="badge">✅ Server đang chạy</span>
+  <a class="btn" href="/profile">📲 Tải Profile (Safari)</a>
+  <div class="steps">
+    <b>Hướng dẫn cài:</b>
+    <ol>
+      <li>Nhấn nút trên bằng <b>Safari</b></li>
+      <li>Chọn <b>Allow</b> khi Safari hỏi</li>
+      <li>Vào <b>Settings → General → VPN & Device Management</b></li>
+      <li>Chọn profile <b>Locket Gold DOH</b> → <b>Install</b></li>
+      <li>✅ Xong! DOH đã hoạt động</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>"""
+    return HTMLResponse(html)
 
 
 @app.get("/dns-query")
