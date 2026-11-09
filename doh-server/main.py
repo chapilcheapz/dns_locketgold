@@ -1,7 +1,7 @@
 """
-DOH Server - Locket Gold Pipeline
-Dựa trên mobileconfig logic
-Deploy: Render.com
+DOH Server - Locket Gold Pipeline (Hoàng Quân)
+Tự chủ 100% — Không phụ thuộc bất kỳ máy chủ bên ngoài nào.
+Deploy: Render.com / Fly.io
 """
 
 import os
@@ -15,11 +15,12 @@ from fastapi.responses import JSONResponse, HTMLResponse
 
 app = FastAPI(title="Locket Gold DOH Server")
 
-# === UPSTREAM DNS ===
+# === UPSTREAM DNS (Cloudflare DNS sạch) ===
 UPSTREAM_DOH = "https://cloudflare-dns.com/dns-query"
 
-# === DOMAIN RULES ===
+# === CHẶN REVOKE VÀ TRACKING/QUẢNG CÁO ===
 BLOCKED_DOMAINS = {
+    # Anti-Revoke Apple
     "ocsp.apple.com",
     "ocsp2.apple.com",
     "crl.apple.com",
@@ -28,6 +29,7 @@ BLOCKED_DOMAINS = {
     "vpp.itunes.apple.com",
     "gdmf.apple.com",
     "certs.apple.com",
+    # Tracking & Ads
     "firebaselogging.googleapis.com",
     "logs.ads.vungle.com",
     "ad.youtube.com",
@@ -36,13 +38,13 @@ BLOCKED_DOMAINS = {
     "pagead2.googlesyndication.com",
 }
 
-# Proxy IP xử lý SSL MITM và Gold injection
-PROXY_IP = os.getenv("PROXY_IP", "180.93.34.245")
+# Tùy chọn: chỉ rewrite khi chính bạn cấu hình biến môi trường PROXY_IP
+PROXY_IP = os.getenv("PROXY_IP", "").strip()
 
-REWRITE_DOMAINS = {
-    "api.revenuecat.com": PROXY_IP,
-    "api.locketcamera.com": PROXY_IP,
-}
+REWRITE_DOMAINS = {}
+if PROXY_IP:
+    REWRITE_DOMAINS["api.revenuecat.com"] = PROXY_IP
+    REWRITE_DOMAINS["api.locketcamera.com"] = PROXY_IP
 
 
 def is_blocked(name: str) -> bool:
@@ -57,8 +59,10 @@ def is_blocked(name: str) -> bool:
 
 
 def get_rewrite_ip(name: str) -> str | None:
-    """Trả về IP rewrite nếu domain khớp."""
+    """Trả về IP rewrite nếu có cấu hình tự chủ."""
     name = name.rstrip(".")
+    if not PROXY_IP:
+        return None
     if name in REWRITE_DOMAINS:
         return REWRITE_DOMAINS[name]
     if name.endswith(".revenuecat.com"):
@@ -139,7 +143,13 @@ def build_json_a(name: str, ip: str) -> dict:
 
 @app.get("/")
 async def health():
-    return {"status": "ok", "service": "Locket Gold DOH Server", "by": "Hoàng Quân"}
+    return {
+        "status": "ok",
+        "service": "Locket Gold DOH Server",
+        "author": "Hoàng Quân",
+        "mode": "standalone",
+        "proxy_ip_override": PROXY_IP if PROXY_IP else "none"
+    }
 
 
 MOBILECONFIG_XML = """<?xml version="1.0" encoding="UTF-8"?>
@@ -147,11 +157,11 @@ MOBILECONFIG_XML = """<?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0">
 <dict>
   <key>PayloadDisplayName</key>
-  <string>Locket Gold — Hoàng Quân</string>
+  <string>Locket Gold DNS — Hoàng Quân</string>
   <key>PayloadDescription</key>
-  <string>Tự động kích hoạt Locket Gold 💛 — Chặn revoke &amp; Không cần Shadowrocket</string>
+  <string>DOH Server riêng của Hoàng Quân — Chặn thu hồi chứng chỉ &amp; Chặn quảng cáo</string>
   <key>PayloadIdentifier</key>
-  <string>com.locketgold.hoangquan.allinone</string>
+  <string>com.locketgold.hoangquan.doh</string>
   <key>PayloadOrganization</key>
   <string>Hoàng Quân</string>
   <key>PayloadType</key>
@@ -166,39 +176,6 @@ MOBILECONFIG_XML = """<?xml version="1.0" encoding="UTF-8"?>
   <array>
     <dict>
       <key>PayloadType</key>
-      <string>com.apple.security.root</string>
-      <key>PayloadIdentifier</key>
-      <string>com.locketgold.hoangquan.ca</string>
-      <key>PayloadUUID</key>
-      <string>00893BDE-36C5-C8EE-1267-580C1BBF5737</string>
-      <key>PayloadVersion</key>
-      <integer>1</integer>
-      <key>PayloadDisplayName</key>
-      <string>Locket Gold Root CA</string>
-      <key>PayloadCertificateFileName</key>
-      <string>LocketGoldRootCA.der</string>
-      <key>PayloadContent</key>
-      <data>
-MIIDYjCCAkqgAwIBAgIUS7u544iqsduNXak3obh9JcG944YwDQYJKoZIhvcNAQELBQAwSTELMAkG
-A1UEBhMCVk4xHDAaBgNVBAoME0xvY2tldCBHb2xkIE5ldHdvcmsxHDAaBgNVBAMME0xvY2tldCBH
-b2xkIFJvb3QgQ0EwHhcNMjYwOTI2MDYxNzE1WhcNMzYwOTIzMDYxNzE1WjBJMQswCQYDVQQGEwJW
-TjEcMBoGA1UECgwTTG9ja2V0IEdvbGQgTmV0d29yazEcMBoGA1UEAwwTTG9ja2V0IEdvbGQgUm9v
-dCBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ4H13uT3sKa8OBJHJTcyY084PZs
-dU734K6wAq5Onv9vITdJ2YW20354W7y092d2pUtV3KFtfB/7CQdRG51KEd2mDpK2XmNPmoIetW70
-YQKzvmhhuO0N6IUWoDmkbjcRIDoGv0z/eDi08oB/sKtKtU8y/efBPv0Z1T/UpcaScVHahLBKz2Y9
-weJR+GR1b5hB6X+M8eFG33DSHUt5dMMic2g1CPgizEVXbdxXnUdl/t83X0NAIQfoK4znm977ZIzz
-gVynGpAunBTh28bMC0AIF77sea+2FSD4HkWSUxX7xDnYOVymIzkxbkD8RcbVayjLCUEV8vyboTys
-aJ8SX4ANMMMCAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0O
-BBYEFNY5tbrBOyd3FRT6R0WRmxIsiVFPMA0GCSqGSIb3DQEBCwUAA4IBAQB5XHksW7bGB3yudvy2
-KAABaXfoL5egKFh7UDyaht4R+Kh0XhwsWLA0DR0L4RzP+17GdmNwojdWb40lmIlX3sb4MsYl0sii
-AJ5FR+okC8k8aeb/1mupEX5ChAPgd0rQDF4ln2O1DQ7QtVr56gN/qwqxzC386ceG5hZ2lGaDsoDu
-Ejw0E+ZUv/AIBJgxlv7uGw6g9VU6aoCW9/0pHTx6YiUPfT0JcOMpqqnjDA5RwBfCjrjdbFQiw3+L
-oOQeW4UNPyUBbs7ldDTTwE6hgHwgFTQqKLKGKUxV+f0mKuSCpVcCTS2AOzDykb4d6bFdnIZb6eTd
-+c81qOPES1gcIfec1eOt
-      </data>
-    </dict>
-    <dict>
-      <key>PayloadType</key>
       <string>com.apple.dnsSettings.managed</string>
       <key>PayloadIdentifier</key>
       <string>com.locketgold.hoangquan.dns</string>
@@ -207,7 +184,7 @@ oOQeW4UNPyUBbs7ldDTTwE6hgHwgFTQqKLKGKUxV+f0mKuSCpVcCTS2AOzDykb4d6bFdnIZb6eTd
       <key>PayloadVersion</key>
       <integer>1</integer>
       <key>PayloadDisplayName</key>
-      <string>Locket Gold DNS Server</string>
+      <string>Locket Gold DOH Server</string>
       <key>DNSSettings</key>
       <dict>
         <key>DNSProtocol</key>
@@ -268,7 +245,7 @@ async def install_page():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Locket Gold — Cài đặt 1 chạm</title>
+<title>Locket Gold DOH — Hoàng Quân</title>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 440px; margin: 30px auto; padding: 20px; background: #0f0f11; color: #fff; }
   .card { background: #1c1c1e; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); border: 1px solid #2c2c2e; }
@@ -286,18 +263,17 @@ async def install_page():
 </head>
 <body>
 <div class="card">
-  <h1>💛 Locket Gold VIP</h1>
-  <p>Cài đặt 1 profile duy nhất — Tự động kích hoạt Gold, chặn revoke, không cần mở Shadowrocket.</p>
-  <span class="badge">● Server Online</span>
-  <a class="btn" href="/profile">📲 Cài Profile Ngay (mở Safari)</a>
+  <h1>🛡️ Locket Gold DOH Server</h1>
+  <p>Máy chủ DNS-over-HTTPS tự host của Hoàng Quân — Chặn thu hồi chứng chỉ & quảng cáo rác.</p>
+  <span class="badge">● Tự chủ 100%</span>
+  <a class="btn" href="/profile">📲 Cài Profile DOH (Safari)</a>
   <div class="steps">
-    <b>Các bước hoàn tất (chỉ làm 1 lần):</b>
+    <b>Cách cài đặt:</b>
     <ol>
-      <li>Nhấn nút trên bằng <b>Safari</b> → Chọn <b>Allow (Cho phép)</b></li>
+      <li>Mở link này bằng <b>Safari</b> → Nhấn <b>Cài Profile DOH</b></li>
+      <li>Chọn <b>Allow (Cho phép)</b></li>
       <li>Vào <b>Cài đặt (Settings) → Đã tải về hồ sơ</b> → Chọn <b>Cài đặt (Install)</b></li>
-      <li>Vào <b>Cài đặt chung → Giới thiệu → Cài đặt tin cậy chứng nhận</b> (Certificate Trust Settings)</li>
-      <li>Bật gạt xanh <b>Locket Gold Root CA</b></li>
-      <li>🎉 Mở Locket — Thưởng thức Locket Gold!</li>
+      <li>✅ Thiết bị được bảo vệ chống thu hồi chứng chỉ & chặn ads tự động!</li>
     </ol>
   </div>
 </div>
