@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: locket-gold-doh
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8080
+      # Nếu có proxy server riêng, set IP vào đây
+      # - key: PROXY_IP
+      #   value: "1.2.3.4"
+    healthCheckPath: /
